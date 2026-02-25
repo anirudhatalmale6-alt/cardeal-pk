@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Cars — Cardeal.pk</title>
+  <meta name="description" content="Browse quality used cars for sale in Pakistan. Find Toyota, Honda, Suzuki and more at competitive prices on Cardeal.pk.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & VARIABLES ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1a3a5c;
+      --navy-deep: #0f2540;
+      --navy-light: #2a5580;
+      --amber: #e8850c;
+      --amber-light: #f5a623;
+      --amber-glow: #e8850c22;
+      --cream: #faf8f5;
+      --white: #ffffff;
+      --gray-50: #f7f8fa;
+      --gray-100: #eef0f4;
+      --gray-200: #dce0e8;
+      --gray-400: #8e95a2;
+      --gray-600: #555d6e;
+      --gray-800: #2d3340;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --shadow-sm: 0 2px 8px rgba(15,37,64,0.06);
+      --shadow-md: 0 8px 30px rgba(15,37,64,0.10);
+      --shadow-lg: 0 20px 60px rgba(15,37,64,0.14);
+      --shadow-card: 0 4px 20px rgba(15,37,64,0.08);
+      --radius: 10px;
+      --radius-lg: 16px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--gray-800);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+    ul { list-style: none; }
+
+    /* ========== UTILITY ========== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--amber);
+      display: inline-block;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--gray-600);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideRight {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ========== NAVBAR ========== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 0 24px;
+      transition: var(--transition);
+      background: transparent;
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(15,37,64,0.08);
+    }
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      transition: var(--transition);
+    }
+    .logo span { color: var(--amber); }
+    .navbar.scrolled .logo { color: var(--navy); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.03em;
+      position: relative;
+      transition: var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--amber);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .navbar.scrolled .nav-links a { color: var(--gray-600); }
+    .navbar.scrolled .nav-links a:hover { color: var(--navy); }
+
+    .nav-cta {
+      background: var(--amber) !important;
+      color: var(--white) !important;
+      padding: 10px 24px !important;
+      border-radius: 8px;
+      font-weight: 700 !important;
+      font-size: 0.85rem !important;
+      transition: var(--transition);
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--amber-light) !important; transform: translateY(-1px); }
+
+    /* Mobile menu toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      padding: 8px;
+    }
+    .menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .navbar.scrolled .menu-toggle span { background: var(--navy); }
+
+    /* ========== PAGE HERO / BANNER ========== */
+    .page-hero {
+      position: relative;
+      padding: 140px 0 60px;
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 50%, var(--navy-light) 100%);
+      overflow: hidden;
+      text-align: center;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(232,133,12,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 80% at 20% 80%, rgba(15,37,64,0.4) 0%, transparent 60%);
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -15%;
+      width: 500px;
+      height: 500px;
+      border: 1px solid rgba(232,133,12,0.12);
+      border-radius: 50%;
+      transform: rotate(-15deg);
+    }
+    .page-hero-content {
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    .page-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,133,12,0.15);
+      border: 1px solid rgba(232,133,12,0.25);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--amber-light);
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+    }
+    .page-hero-badge svg { width: 14px; height: 14px; }
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+    .page-hero h1 em {
+      font-style: normal;
+      color: var(--amber);
+      position: relative;
+    }
+    .page-hero h1 em::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--amber);
+      border-radius: 2px;
+      opacity: 0.4;
+    }
+    .page-hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ========== BROWSE SECTION ========== */
+    .browse-section {
+      padding: 60px 0 100px;
+      background: var(--gray-50);
+      position: relative;
+    }
+    .browse-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gray-200), transparent);
+    }
+
+    .browse-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ========== FILTER SIDEBAR ========== */
+    .filter-sidebar {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 90px;
+    }
+
+    .filter-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .filter-header h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .filter-header h3 svg { width: 20px; height: 20px; color: var(--amber); }
+    .filter-reset {
+      background: none;
+      color: var(--amber);
+      font-size: 0.78rem;
+      font-weight: 600;
+      font-family: var(--font-display);
+      letter-spacing: 0.02em;
+      transition: var(--transition);
+    }
+    .filter-reset:hover { color: var(--amber-light); }
+
+    .filter-group {
+      margin-bottom: 22px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .filter-group:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .filter-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 10px;
+      font-family: var(--font-display);
+      letter-spacing: 0.02em;
+    }
+    .filter-group select,
+    .filter-group input[type="number"] {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: var(--gray-800);
+      background: var(--white);
+      transition: var(--transition);
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .filter-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238e95a2' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .filter-group select:focus,
+    .filter-group input[type="number"]:focus {
+      border-color: var(--amber);
+      box-shadow: 0 0 0 3px var(--amber-glow);
+    }
+
+    .price-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .price-inputs input::placeholder {
+      color: var(--gray-400);
+      font-size: 0.82rem;
+    }
+
+    .filter-apply {
+      width: 100%;
+      background: var(--amber);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 13px 20px;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .filter-apply:hover { background: var(--amber-light); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,133,12,0.3); }
+    .filter-apply svg { width: 16px; height: 16px; }
+
+    /* Mobile filter toggle */
+    .filter-toggle-mobile {
+      display: none;
+      width: 100%;
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      color: var(--navy);
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 14px 20px;
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: var(--transition);
+    }
+    .filter-toggle-mobile svg { width: 18px; height: 18px; color: var(--amber); }
+    .filter-toggle-mobile:hover { border-color: var(--amber); background: var(--amber-glow); }
+
+    /* ========== RESULTS HEADER ========== */
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .results-count {
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--gray-600);
+    }
+    .results-count strong {
+      color: var(--navy);
+    }
+    .results-sort {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .results-sort label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gray-400);
+      white-space: nowrap;
+    }
+    .results-sort select {
+      padding: 8px 32px 8px 12px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      color: var(--gray-800);
+      background: var(--white);
+      outline: none;
+      transition: var(--transition);
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238e95a2' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+    .results-sort select:focus {
+      border-color: var(--amber);
+      box-shadow: 0 0 0 3px var(--amber-glow);
+    }
+
+    /* ========== CAR CARDS GRID ========== */
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .car-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--gray-100);
+      transition: var(--transition);
+      position: relative;
+    }
+    .car-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+
+    .car-card-image {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: var(--gray-100);
+    }
+    .car-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .car-card:hover .car-card-image img { transform: scale(1.06); }
+
+    .car-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--amber);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 6px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .car-badge.badge-navy {
+      background: var(--navy);
+    }
+    .car-badge.badge-green {
+      background: #27ae60;
+    }
+
+    .car-card-body { padding: 20px; }
+
+    .car-card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .car-card-year {
+      font-size: 0.78rem;
+      color: var(--gray-400);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .car-card-specs {
+      font-size: 0.8rem;
+      color: var(--gray-400);
+      margin-bottom: 16px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .car-card-specs span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .car-card-specs svg {
+      width: 14px;
+      height: 14px;
+      color: var(--gray-400);
+      flex-shrink: 0;
+    }
+
+    .car-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .car-price {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--amber);
+    }
+    .car-price small {
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--gray-400);
+      display: block;
+    }
+
+    .car-card-btn {
+      background: var(--navy);
+      color: var(--white);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 8px;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .car-card-btn:hover { background: var(--navy-light); transform: translateY(-1px); }
+    .car-card-btn svg { width: 14px; height: 14px; }
+
+    /* ========== PAGINATION ========== */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 48px;
+    }
+    .pagination a,
+    .pagination span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius);
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: var(--transition);
+      border: 1.5px solid var(--gray-200);
+      color: var(--gray-600);
+      background: var(--white);
+    }
+    .pagination a:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+      background: var(--amber-glow);
+    }
+    .pagination .active {
+      background: var(--amber);
+      color: var(--white);
+      border-color: var(--amber);
+    }
+    .pagination .prev,
+    .pagination .next {
+      width: auto;
+      padding: 0 16px;
+      gap: 6px;
+      font-size: 0.82rem;
+    }
+    .pagination .prev svg,
+    .pagination .next svg {
+      width: 16px;
+      height: 16px;
+    }
+    .pagination .disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: var(--navy-deep);
+      color: rgba(255,255,255,0.6);
+      padding: 60px 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand .logo {
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .footer-brand p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: var(--transition);
+    }
+    .footer-col a:hover { color: var(--amber); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      font-size: 0.8rem;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .footer-social a:hover { background: var(--amber); }
+    .footer-social svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.7); }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .cars-grid { grid-template-columns: repeat(2, 1fr); }
+      .browse-layout { grid-template-columns: 260px 1fr; gap: 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        padding: 24px;
+        box-shadow: var(--shadow-md);
+        gap: 16px;
+      }
+      .nav-links.active a { color: var(--gray-600); }
+      .menu-toggle { display: flex; }
+
+      .page-hero { padding: 110px 0 48px; }
+      .page-hero h1 { font-size: clamp(1.8rem, 6vw, 2.4rem); }
+
+      .browse-section { padding: 40px 0 64px; }
+      .browse-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-sidebar {
+        display: none;
+        position: static;
+      }
+      .filter-sidebar.active {
+        display: block;
+        animation: fadeUp 0.4s ease forwards;
+      }
+      .filter-toggle-mobile { display: flex; }
+
+      .cars-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .page-hero { padding: 100px 0 40px; }
+      .results-header { flex-direction: column; align-items: flex-start; }
+      .pagination a,
+      .pagination span { width: 36px; height: 36px; font-size: 0.8rem; }
+      .pagination .prev,
+      .pagination .next { padding: 0 12px; font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">Car<span>deal</span>.pk</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="browse.html">Browse Cars</a></li>
+        <li><a href="sell.html">Sell Your Car</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="sell.html" class="nav-cta">List Your Car</a></li>
+      </ul>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-content">
+        <div class="page-hero-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          500+ Cars Available
+        </div>
+        <h1>Browse <em>Cars</em> For Sale</h1>
+        <p>Explore our curated collection of quality used cars from trusted sellers across Pakistan. Find the perfect ride at the right price.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BROWSE SECTION ===== -->
+  <section class="browse-section">
+    <div class="container">
+
+      <!-- Mobile Filter Toggle -->
+      <button class="filter-toggle-mobile" id="filterToggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+        Filter Cars
+      </button>
+
+      <div class="browse-layout">
+
+        <!-- ===== FILTER SIDEBAR ===== -->
+        <aside class="filter-sidebar reveal" id="filterSidebar">
+          <div class="filter-header">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+              Filters
+            </h3>
+            <button class="filter-reset" onclick="resetFilters()">Reset All</button>
+          </div>
+
+          <div class="filter-group">
+            <label>Brand</label>
+            <select id="filterBrand">
+              <option value="">All Brands</option>
+              <option value="toyota">Toyota</option>
+              <option value="honda">Honda</option>
+              <option value="suzuki">Suzuki</option>
+              <option value="hyundai">Hyundai</option>
+              <option value="kia">KIA</option>
+              <option value="daihatsu">Daihatsu</option>
+              <option value="mitsubishi">Mitsubishi</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Price Range (PKR)</label>
+            <div class="price-inputs">
+              <input type="number" id="priceMin" placeholder="Min" min="0" step="100000">
+              <input type="number" id="priceMax" placeholder="Max" min="0" step="100000">
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label>Year</label>
+            <select id="filterYear">
+              <option value="">All Years</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+              <option value="2015">2015 & Older</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Transmission</label>
+            <select id="filterTransmission">
+              <option value="">All Types</option>
+              <option value="automatic">Automatic</option>
+              <option value="manual">Manual</option>
+            </select>
+          </div>
+
+          <button class="filter-apply" onclick="applyFilters()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Apply Filters
+          </button>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="browse-main">
+
+          <!-- Results Header -->
+          <div class="results-header reveal">
+            <div class="results-count">Showing <strong>9</strong> of <strong>9</strong> cars</div>
+            <div class="results-sort">
+              <label>Sort by:</label>
+              <select id="sortSelect">
+                <option value="newest">Newest First</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="year-new">Year: Newest</option>
+                <option value="mileage">Lowest Mileage</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Cars Grid -->
+          <div class="cars-grid">
+
+            <!-- Car 1 — Toyota Corolla 2018 -->
+            <div class="car-card reveal reveal-delay-1">
+              <div class="car-card-image">
+                <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&q=80" alt="Toyota Corolla 2018" loading="lazy">
+                <span class="car-badge">Featured</span>
+              </div>
+              <div class="car-card-body">
+                <h3 class="car-card-title">Toyota Corolla</h3>
+                <div class="car-card-year">2018 Model</div>
+                <div class="car-card-specs">
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                    1.8L
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg>
+                    Automatic
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                    55,000 km
+                  </span>
+                </div>
+                <div class="car-card-footer">
+                  <div class="car-price">
+                    PKR 2,450,000
+                  </div>
+                  <a href="contact.html" class="car-card-btn">
+                    Inquire
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car 2 — Honda Civic 2019 -->
+            <div class="car-card reveal reveal-delay-2">
+              <div class="car-card-image">
+                <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&q=80" alt="Honda Civic 2019" loading="lazy">
+                <span class="car-badge badge-green">Hot Deal</span>
+              </div>
+              <div class="car-card-body">
+                <h3 class="car-card-title">Honda Civic</h3>
+                <div class="car-card-year">2019 Model</div>
+                <div class="car-card-specs">
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                    1.8L Turbo
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg>
+                    Manual
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                    38,000 km
+                  </span>
+                </div>
+                <div class="car-card-footer">
+                  <div class="car-price">
+                    PKR 3,150,000
+                  </div>
+                  <a href="contact.html" class="car-card-btn">
+                    Inquire
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car 3 — Suzuki Cultus 2020 -->
+            <div class="car-card reveal reveal-delay-3">
+              <div class="car-card-image">
+                <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=600&q=80" alt="Suzuki Cultus 2020" loading="lazy">
+                <span class="car-badge badge-navy">New Arrival</span>
+              </div>
+              <div class="car-card-body">
+                <h3 class="car-card-title">Suzuki Cultus</h3>
+                <div class="car-card-year">2020 Model</div>
+                <div class="car-card-specs">
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                    1.0L
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg>
+                    Automatic
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                    22,000 km
+                  </span>
+                </div>
+                <div class="car-card-footer">
+                  <div class="car-price">
+                    PKR 1,650,000
+                  </div>
+                  <a href="contact.html" class="car-card-btn">
+                    Inquire
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car 4 — Toyota Yaris 2021 -->
+            <div class="car-card reveal reveal-delay-1">
+              <div class="car-card-image">
+                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80" alt="Toyota Yaris 2021" loading="lazy">
+                <span class="car-badge">Featured</span>
+              </div>
+              <div class="car-card-body">
+                <h3 class="car-card-title">Toyota Yaris</h3>
+                <div class="car-card-year">2021 Model</div>
+                <div class="car-card-specs">
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                    1.3L
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg>
+                    Automatic
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                    18,000 km
+                  </span>
+                </div>
+                <div class="car-card-footer">
+                  <div class="car-price">
+                    PKR 2,800,000
+                  </div>
+                  <a href="contact.html" class="car-card-btn">
+                    Inquire
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car 5 — Suzuki Alto 2020 -->
+            <div class="car-card reveal reveal-delay-2">
+              <div class="car-card-image">
+                <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=600&q=80" alt="Suzuki Alto 2020" loading="lazy">
+                <span class="car-badge badge-green">Best Value</span>
+              </div>
+              <div class="car-card-body">
+                <h3 class="car-card-title">Suzuki Alto</h3>
+                <div class="car-card-year">2020 Model</div>
+                <div class="car-card-specs">
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                    0.66L
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg>
+                    Automatic
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                    30,000 km
+                  </span>
+                </div>
+                <div class="car-card-footer">
+                  <div class="car-price">
+                    PKR 1,350,000
+                  </div>
+                  <a href="contact.html" class="car-card-btn">
+                    Inquire
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car 6 — Honda City 2019 -->
+            <div class="car-card reveal reveal-delay-3">
+              <div class="car-card-image">
+                <img src="https://images.unsplash.com/photo-1590362891991-f776e747a588?w=600&q=80" alt="Honda City 2019" loading="lazy">
+                <span class="car-badge">Featured</span>
+              </div>
+              <div class="car-card-body">
+                <h3 class="car-card-title">Honda City</h3>
+                <div class="car-card-year">2019 Model</div>
+                <div class="car-card-specs">
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                    1.5L
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg>
+                    Manual
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                    42,000 km
+                  </span>
+                </div>
+                <div class="car-card-footer">
+                  <div class="car-price">
+                    PKR 2,650,000
+                  </div>
+                  <a href="contact.html" class="car-card-btn">
+                    Inquire
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car 7 — Toyota Corolla 2020 -->
+            <div class="car-card reveal reveal-delay-1">
+              <div class="car-card-image">
+                <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?w=600&q=80" alt="Toyota Corolla 2020" loading="lazy">
+                <span class="car-badge badge-navy">Low Mileage</span>
+              </div>
+              <div class="car-card-body">
+                <h3 class="car-card-title">Toyota Corolla</h3>
+                <div class="car-card-year">2020 Model</div>
+                <div class="car-card-specs">
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                    1.8L
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg>
+                    Automatic
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                    25,000 km
+                  </span>
+                </div>
+                <div class="car-card-footer">
+                  <div class="car-price">
+                    PKR 3,200,000
+                  </div>
+                  <a href="contact.html" class="car-card-btn">
+                    Inquire
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car 8 — Suzuki Swift 2021 -->
+            <div class="car-card reveal reveal-delay-2">
+              <div class="car-card-image">
+                <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&q=80" alt="Suzuki Swift 2021" loading="lazy">
+                <span class="car-badge badge-green">Hot Deal</span>
+              </div>
+              <div class="car-card-body">
+                <h3 class="car-card-title">Suzuki Swift</h3>
+                <div class="car-card-year">2021 Model</div>
+                <div class="car-card-specs">
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                    1.2L
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg>
+                    Automatic
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                    15,000 km
+                  </span>
+                </div>
+                <div class="car-card-footer">
+                  <div class="car-price">
+                    PKR 2,100,000
+                  </div>
+                  <a href="contact.html" class="car-card-btn">
+                    Inquire
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car 9 — Honda BR-V 2020 -->
+            <div class="car-card reveal reveal-delay-3">
+              <div class="car-card-image">
+                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&q=80" alt="Honda BR-V 2020" loading="lazy">
+                <span class="car-badge">Featured</span>
+              </div>
+              <div class="car-card-body">
+                <h3 class="car-card-title">Honda BR-V</h3>
+                <div class="car-card-year">2020 Model</div>
+                <div class="car-card-specs">
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                    1.5L
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg>
+                    Automatic
+                  </span>
+                  <span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+                    35,000 km
+                  </span>
+                </div>
+                <div class="car-card-footer">
+                  <div class="car-price">
+                    PKR 3,500,000
+                  </div>
+                  <a href="contact.html" class="car-card-btn">
+                    Inquire
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination reveal">
+            <a href="#" class="prev disabled">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Prev
+            </a>
+            <span class="active">1</span>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#" class="next">
+              Next
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">Car<span>deal</span>.pk</a>
+          <p>Pakistan's trusted car marketplace. We connect car sellers with genuine buyers through smart advertising and a seamless experience.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="index.html">Home</a>
+          <a href="browse.html">Browse Cars</a>
+          <a href="sell.html">Sell Your Car</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="footer-col">
+          <h4>Popular Cars</h4>
+          <a href="browse.html">Toyota Corolla</a>
+          <a href="browse.html">Honda Civic</a>
+          <a href="browse.html">Suzuki Cultus</a>
+          <a href="browse.html">Suzuki Alto</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="contact.html">Help Center</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="contact.html">Report an Issue</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Cardeal.pk — All rights reserved.</span>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect — start scrolled since page hero has navy bg
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      navbar.classList.add('scrolled');
+    });
+
+    // Close menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('active'));
+    });
+
+    // Mobile filter toggle
+    const filterToggle = document.getElementById('filterToggle');
+    const filterSidebar = document.getElementById('filterSidebar');
+    filterToggle.addEventListener('click', () => {
+      filterSidebar.classList.toggle('active');
+      if (filterSidebar.classList.contains('active')) {
+        filterToggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:var(--amber)"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Hide Filters';
+      } else {
+        filterToggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;color:var(--amber)"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg> Filter Cars';
+      }
+    });
+
+    // Filter functions (placeholder — front-end demo only)
+    function applyFilters() {
+      // In production, this would filter the car listings
+      const brand = document.getElementById('filterBrand').value;
+      const year = document.getElementById('filterYear').value;
+      const transmission = document.getElementById('filterTransmission').value;
+      const priceMin = document.getElementById('priceMin').value;
+      const priceMax = document.getElementById('priceMax').value;
+
+      // Visual feedback
+      const btn = document.querySelector('.filter-apply');
+      btn.innerHTML = '<span>Filters Applied!</span>';
+      btn.style.background = '#27ae60';
+      setTimeout(() => {
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Apply Filters';
+        btn.style.background = '';
+      }, 1500);
+    }
+
+    function resetFilters() {
+      document.getElementById('filterBrand').value = '';
+      document.getElementById('filterYear').value = '';
+      document.getElementById('filterTransmission').value = '';
+      document.getElementById('priceMin').value = '';
+      document.getElementById('priceMax').value = '';
+    }
+
+    // Scroll reveal (Intersection Observer)
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

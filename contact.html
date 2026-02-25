@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Cardeal.pk</title>
+  <meta name="description" content="Get in touch with Cardeal.pk. Contact us for buying, selling cars, or any inquiries. We're here to help you find or sell your car in Pakistan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & VARIABLES ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #1a3a5c;
+      --navy-deep: #0f2540;
+      --navy-light: #2a5580;
+      --amber: #e8850c;
+      --amber-light: #f5a623;
+      --amber-glow: #e8850c22;
+      --cream: #faf8f5;
+      --white: #ffffff;
+      --gray-50: #f7f8fa;
+      --gray-100: #eef0f4;
+      --gray-200: #dce0e8;
+      --gray-400: #8e95a2;
+      --gray-600: #555d6e;
+      --gray-800: #2d3340;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --shadow-sm: 0 2px 8px rgba(15,37,64,0.06);
+      --shadow-md: 0 8px 30px rgba(15,37,64,0.10);
+      --shadow-lg: 0 20px 60px rgba(15,37,64,0.14);
+      --shadow-card: 0 4px 20px rgba(15,37,64,0.08);
+      --radius: 10px;
+      --radius-lg: 16px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--gray-800);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+    ul { list-style: none; }
+
+    /* ========== UTILITY ========== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--amber);
+      display: inline-block;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--gray-600);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideRight {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ========== NAVBAR ========== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 0 24px;
+      transition: var(--transition);
+      background: transparent;
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(15,37,64,0.08);
+    }
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      transition: var(--transition);
+    }
+    .logo span { color: var(--amber); }
+    .navbar.scrolled .logo { color: var(--navy); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.03em;
+      position: relative;
+      transition: var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--amber);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .navbar.scrolled .nav-links a { color: var(--gray-600); }
+    .navbar.scrolled .nav-links a:hover { color: var(--navy); }
+
+    .nav-cta {
+      background: var(--amber) !important;
+      color: var(--white) !important;
+      padding: 10px 24px !important;
+      border-radius: 8px;
+      font-weight: 700 !important;
+      font-size: 0.85rem !important;
+      transition: var(--transition);
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--amber-light) !important; transform: translateY(-1px); }
+
+    /* Mobile menu toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      padding: 8px;
+    }
+    .menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .navbar.scrolled .menu-toggle span { background: var(--navy); }
+
+    /* ========== PAGE HERO BANNER ========== */
+    .page-hero {
+      position: relative;
+      padding: 160px 0 80px;
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 50%, var(--navy-light) 100%);
+      overflow: hidden;
+      text-align: center;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(232,133,12,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 80% at 20% 80%, rgba(15,37,64,0.4) 0%, transparent 60%);
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      border: 1px solid rgba(232,133,12,0.12);
+      border-radius: 50%;
+      transform: rotate(-15deg);
+    }
+    .page-hero-content {
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    .page-hero-breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+    .page-hero-breadcrumb a {
+      color: rgba(255,255,255,0.6);
+      transition: var(--transition);
+    }
+    .page-hero-breadcrumb a:hover { color: var(--amber); }
+    .page-hero-breadcrumb svg { width: 14px; height: 14px; }
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .page-hero h1 em {
+      font-style: normal;
+      color: var(--amber);
+      position: relative;
+    }
+    .page-hero h1 em::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--amber);
+      border-radius: 2px;
+      opacity: 0.4;
+    }
+    .page-hero-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ========== CONTACT INFO CARDS ========== */
+    .contact-info-section {
+      padding: 80px 0;
+      background: var(--gray-50);
+      position: relative;
+    }
+    .contact-info-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gray-200), transparent);
+    }
+
+    .contact-info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .contact-info-item {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      text-align: center;
+      border: 1px solid var(--gray-100);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-info-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--amber), var(--amber-light));
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+    .contact-info-item:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .contact-info-item:hover::before { transform: scaleX(1); }
+
+    .contact-info-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(26,58,92,0.2);
+    }
+    .contact-info-icon svg { width: 26px; height: 26px; stroke: var(--amber); fill: none; stroke-width: 1.8; }
+
+    .contact-info-item h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .contact-info-item p {
+      font-size: 0.92rem;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+    .contact-info-item a {
+      color: var(--gray-600);
+      transition: var(--transition);
+    }
+    .contact-info-item a:hover { color: var(--amber); }
+
+    /* ========== CONTACT FORM SECTION ========== */
+    .contact-form-section {
+      padding: 100px 0;
+      background: var(--white);
+      position: relative;
+    }
+
+    .contact-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-sidebar {
+      background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-sidebar::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -30%;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,133,12,0.1), transparent 70%);
+    }
+    .contact-sidebar::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -20%;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .contact-sidebar h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .contact-sidebar > p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      margin-bottom: 36px;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .sidebar-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .sidebar-detail:last-child { margin-bottom: 0; }
+    .sidebar-detail-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(232,133,12,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .sidebar-detail-icon svg { width: 20px; height: 20px; color: var(--amber); }
+    .sidebar-detail-text strong {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 2px;
+    }
+    .sidebar-detail-text span {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .sidebar-detail-text a {
+      color: rgba(255,255,255,0.6);
+      transition: var(--transition);
+    }
+    .sidebar-detail-text a:hover { color: var(--amber); }
+
+    .sidebar-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .sidebar-social a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .sidebar-social a:hover { background: var(--amber); }
+    .sidebar-social svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.7); }
+
+    /* Form wrapper */
+    .contact-form-wrapper {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 44px;
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-sm);
+    }
+    .contact-form-wrapper h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .contact-form-wrapper > p {
+      font-size: 0.9rem;
+      color: var(--gray-400);
+      margin-bottom: 28px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group { margin-bottom: 16px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--gray-800);
+      background: var(--white);
+      transition: var(--transition);
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--amber);
+      box-shadow: 0 0 0 3px var(--amber-glow);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--gray-400);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 140px; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--amber);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 16px;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    .form-submit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      background-size: 200% 100%;
+      animation: shimmer 3s infinite;
+    }
+    .form-submit:hover { background: var(--amber-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,133,12,0.3); }
+    .form-submit svg { width: 18px; height: 18px; }
+
+    /* ========== MAP EMBED ========== */
+    .map-section {
+      padding: 0;
+      background: var(--gray-50);
+    }
+    .map-wrapper {
+      width: 100%;
+      height: 400px;
+      border-radius: 0;
+      overflow: hidden;
+      position: relative;
+      background: var(--gray-100);
+    }
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ========== FAQ SECTION ========== */
+    .faq-section {
+      padding: 100px 0;
+      background: var(--gray-50);
+      position: relative;
+    }
+    .faq-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gray-200), transparent);
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-100);
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .faq-item:hover {
+      box-shadow: var(--shadow-card);
+      border-color: transparent;
+    }
+    .faq-item.active {
+      border-color: rgba(232,133,12,0.3);
+      box-shadow: 0 4px 20px rgba(232,133,12,0.08);
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 28px;
+      cursor: pointer;
+      gap: 16px;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      transition: var(--transition);
+    }
+    .faq-question:hover { color: var(--amber); }
+    .faq-item.active .faq-question { color: var(--amber); }
+
+    .faq-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--gray-50);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .faq-item.active .faq-icon {
+      background: var(--amber);
+      transform: rotate(180deg);
+    }
+    .faq-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--gray-600);
+      fill: none;
+      stroke-width: 2.5;
+      transition: var(--transition);
+    }
+    .faq-item.active .faq-icon svg { stroke: var(--white); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .faq-item.active .faq-answer {
+      max-height: 300px;
+    }
+    .faq-answer-inner {
+      padding: 0 28px 24px;
+      font-size: 0.95rem;
+      color: var(--gray-600);
+      line-height: 1.75;
+    }
+
+    /* ========== CTA SECTION ========== */
+    .cta-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 60%, var(--navy-light) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,133,12,0.1), transparent 70%);
+    }
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .cta-content {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .cta-content p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 36px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--amber);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      background-size: 200% 100%;
+      animation: shimmer 3s infinite;
+    }
+    .btn-primary:hover { background: var(--amber-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,133,12,0.35); }
+    .btn-primary svg { width: 18px; height: 18px; }
+
+    .cta-features {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .cta-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .cta-feature svg { width: 20px; height: 20px; color: var(--amber); flex-shrink: 0; }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: var(--navy-deep);
+      color: rgba(255,255,255,0.6);
+      padding: 60px 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand .logo {
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .footer-brand p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+      transition: var(--transition);
+    }
+    .footer-col a:hover { color: var(--amber); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      font-size: 0.8rem;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .footer-social a:hover { background: var(--amber); }
+    .footer-social svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.7); }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .contact-info-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-form-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        padding: 24px;
+        box-shadow: var(--shadow-md);
+        gap: 16px;
+      }
+      .nav-links.active a { color: var(--gray-600); }
+      .menu-toggle { display: flex; }
+
+      .page-hero { padding: 120px 0 60px; }
+      .page-hero h1 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+
+      .contact-info-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-wrapper { padding: 28px 20px; }
+      .contact-sidebar { padding: 36px 28px; }
+
+      .faq-question { padding: 18px 20px; font-size: 0.92rem; }
+      .faq-answer-inner { padding: 0 20px 20px; font-size: 0.9rem; }
+
+      .map-wrapper { height: 300px; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      .contact-info-section,
+      .contact-form-section,
+      .faq-section { padding: 64px 0; }
+      .cta-section { padding: 56px 0; }
+    }
+
+    @media (max-width: 480px) {
+      .cta-features { flex-direction: column; align-items: center; gap: 16px; }
+      .contact-info-item { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">Car<span>deal</span>.pk</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="browse.html">Browse Cars</a></li>
+        <li><a href="sell.html">Sell Your Car</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="sell.html" class="nav-cta">List Your Car</a></li>
+      </ul>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HERO BANNER ===== -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-content">
+        <div class="page-hero-breadcrumb">
+          <a href="index.html">Home</a>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          <span>Contact Us</span>
+        </div>
+        <h1>Get In <em>Touch</em> With Us</h1>
+        <p class="page-hero-subtitle">Have questions about buying or selling a car? We're here to help. Reach out and our team will respond within 24 hours.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT INFO CARDS ===== -->
+  <section class="contact-info-section">
+    <div class="container">
+      <div class="contact-info-grid">
+        <div class="contact-info-item reveal reveal-delay-1">
+          <div class="contact-info-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Our Location</h3>
+          <p>Lahore, Punjab, Pakistan</p>
+        </div>
+        <div class="contact-info-item reveal reveal-delay-2">
+          <div class="contact-info-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <h3>Phone / WhatsApp</h3>
+          <p><a href="tel:+923001234567">+92 300 1234567</a></p>
+        </div>
+        <div class="contact-info-item reveal reveal-delay-3">
+          <div class="contact-info-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+          </div>
+          <h3>Email Us</h3>
+          <p><a href="mailto:info@cardeal.pk">info@cardeal.pk</a></p>
+        </div>
+        <div class="contact-info-item reveal reveal-delay-4">
+          <div class="contact-info-icon">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Working Hours</h3>
+          <p>Mon - Sat, 9AM - 8PM</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT FORM + SIDEBAR ===== -->
+  <section class="contact-form-section" id="contact-form">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:56px;" class="reveal">
+        <div class="section-label" style="justify-content:center;">Send A Message</div>
+        <h2 class="section-title">We'd Love To Hear From You</h2>
+        <p class="section-subtitle" style="margin:0 auto;">Whether you want to buy, sell, or just have a question, fill out the form below and our team will get back to you promptly.</p>
+      </div>
+      <div class="contact-form-grid">
+        <div class="contact-sidebar reveal reveal-delay-1">
+          <h3>Let's Connect</h3>
+          <p>Have questions about buying or selling? Reach out and our team will get back to you within 24 hours.</p>
+          <div class="sidebar-detail">
+            <div class="sidebar-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="sidebar-detail-text">
+              <strong>Location</strong>
+              <span>Lahore, Punjab, Pakistan</span>
+            </div>
+          </div>
+          <div class="sidebar-detail">
+            <div class="sidebar-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div class="sidebar-detail-text">
+              <strong>Phone / WhatsApp</strong>
+              <span><a href="tel:+923001234567">+92 300 1234567</a></span>
+            </div>
+          </div>
+          <div class="sidebar-detail">
+            <div class="sidebar-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+            </div>
+            <div class="sidebar-detail-text">
+              <strong>Email</strong>
+              <span><a href="mailto:info@cardeal.pk">info@cardeal.pk</a></span>
+            </div>
+          </div>
+          <div class="sidebar-detail">
+            <div class="sidebar-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="sidebar-detail-text">
+              <strong>Working Hours</strong>
+              <span>Mon - Sat, 9:00 AM - 8:00 PM</span>
+            </div>
+          </div>
+          <div class="sidebar-social">
+            <a href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="contact-form-wrapper reveal reveal-delay-2">
+          <h3>Send Us A Message</h3>
+          <p>Fill out the form below and we'll get back to you shortly.</p>
+          <form id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" name="name" placeholder="Your full name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" placeholder="+92 3XX XXXXXXX" required>
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject *</label>
+                <select id="subject" name="subject" required>
+                  <option value="" disabled selected>Select a subject</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="buying">Buying a Car</option>
+                  <option value="selling">Selling a Car</option>
+                  <option value="partnership">Partnership</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" placeholder="Tell us how we can help you..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit">
+              Send Message
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MAP SECTION ===== -->
+  <section class="map-section">
+    <div class="map-wrapper">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d435519.22703556426!2d74.00472548828126!3d31.483103600000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39190483e58107d9%3A0xc23abe6ccc7e2462!2sLahore%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Cardeal.pk Location - Lahore, Pakistan"></iframe>
+    </div>
+  </section>
+
+  <!-- ===== FAQ SECTION ===== -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:56px;" class="reveal">
+        <div class="section-label" style="justify-content:center;">FAQs</div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle" style="margin:0 auto;">Everything you need to know about buying and selling cars with Cardeal.pk</p>
+      </div>
+      <div class="faq-container">
+        <div class="faq-item active reveal reveal-delay-1">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>How does Cardeal.pk work?</span>
+            <div class="faq-icon">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Cardeal.pk is a car marketplace that connects sellers with genuine buyers. If you want to sell your car, simply list it with us and our team will advertise it across multiple platforms including Facebook and our website. We handle the promotion while you receive inquiries from serious, ready-to-buy customers. For buyers, you can browse our listings and contact sellers directly through our platform.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-1">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Is it free to list my car?</span>
+            <div class="faq-icon">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Yes, listing your car on Cardeal.pk is completely free! There are no upfront charges or hidden fees. We believe in a no-sale-no-fee model, which means you only benefit from our services without any financial risk. Our goal is to help you sell your car as quickly as possible through effective advertising and buyer matching.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-2">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>How long does it take to sell my car?</span>
+            <div class="faq-icon">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              The selling timeline varies depending on the car model, condition, price, and market demand. On average, most cars listed with us receive inquiries within the first few days and are sold within 1 to 3 weeks. Popular models like Toyota Corolla and Honda Civic tend to sell faster. Our advertising strategies are designed to maximize visibility and attract serious buyers quickly.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-2">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>How do you find buyers for my car?</span>
+            <div class="faq-icon">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              We use a multi-channel advertising approach to find the right buyers for your car. Your listing is promoted on our website, shared across our Facebook groups with thousands of active members, and advertised through targeted social media campaigns. We also maintain a database of pre-verified buyers who are actively looking for specific car models, allowing us to match them with your listing instantly.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-3">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>Is my personal information safe with Cardeal.pk?</span>
+            <div class="faq-icon">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Absolutely. We take your privacy and data security very seriously. Your personal information is never shared publicly or with third parties without your consent. When buyers inquire about your car, we facilitate the connection in a controlled manner. We follow strict data protection practices and only use your information for the purpose of helping you buy or sell a vehicle.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item reveal reveal-delay-3">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span>What areas of Pakistan do you cover?</span>
+            <div class="faq-icon">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              While our office is based in Lahore, Punjab, Cardeal.pk serves customers across all major cities in Pakistan including Lahore, Karachi, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, and Quetta. Our online platform and digital advertising reach buyers and sellers nationwide, so no matter where you are in Pakistan, we can help you buy or sell your car.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA SECTION ===== -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content reveal">
+        <div class="section-label" style="justify-content:center; color:var(--amber-light);">Ready To Sell?</div>
+        <h2>List Your Car With Us Today!</h2>
+        <p>No sale, no fee! Let our team handle the advertising while you wait for the perfect buyer.</p>
+        <div class="cta-features">
+          <div class="cta-feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Free Listing
+          </div>
+          <div class="cta-feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Facebook Promotion
+          </div>
+          <div class="cta-feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Verified Buyers Only
+          </div>
+        </div>
+        <a href="sell.html" class="btn-primary" style="font-size:1.05rem; padding:18px 40px;">
+          Get Started Now
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:20px;height:20px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">Car<span>deal</span>.pk</a>
+          <p>Pakistan's trusted car marketplace. We connect car sellers with genuine buyers through smart advertising and a seamless experience.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="index.html">Home</a>
+          <a href="browse.html">Browse Cars</a>
+          <a href="sell.html">Sell Your Car</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="footer-col">
+          <h4>Popular Cars</h4>
+          <a href="browse.html">Toyota Corolla</a>
+          <a href="browse.html">Honda Civic</a>
+          <a href="browse.html">Suzuki Cultus</a>
+          <a href="browse.html">Suzuki Alto</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="contact.html">Help Center</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="contact.html">Report an Issue</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Cardeal.pk — All rights reserved.</span>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect — auto-apply scrolled state since page hero is shorter
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+    // Apply scrolled state on load if already scrolled
+    if (window.scrollY > 60) navbar.classList.add('scrolled');
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      navbar.classList.add('scrolled');
+    });
+
+    // Close menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('active'));
+    });
+
+    // Scroll reveal (Intersection Observer)
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // FAQ accordion toggle
+    function toggleFaq(btn) {
+      const faqItem = btn.closest('.faq-item');
+      const isActive = faqItem.classList.contains('active');
+      // Close all FAQ items
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      // Open clicked item if it wasn't already open
+      if (!isActive) {
+        faqItem.classList.add('active');
+      }
+    }
+
+    // Contact form handler
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = '<span>Message Sent Successfully!</span> &#10003;';
+      btn.style.background = '#27ae60';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
