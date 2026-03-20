@@ -1,5 +1,5 @@
 <?php
-// Database Configuration
+// Database Configuration - Update these for your hosting
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'cardeal_pk');
 define('DB_USER', 'root');
